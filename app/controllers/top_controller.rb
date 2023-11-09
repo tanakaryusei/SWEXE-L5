@@ -12,6 +12,9 @@ class TopController < ApplicationController
     user = User.find_by(uid: params[:uid])
     if user != nil
       login_pass = BCrypt::Password.new(user.pass)
+      
+      logger.debug "*" * 50
+      logger.debug user.pass
       if login_pass == params[:pass]
         session[:login_uid] = user.uid
         redirect_to tweets_path
@@ -25,6 +28,6 @@ class TopController < ApplicationController
 
   def logout
     session.delete(:login_uid)
-    redirect_to top_main_path
+    redirect_to users_path
   end
 end

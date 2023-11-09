@@ -11,10 +11,10 @@ class UsersController < ApplicationController
     if User.find_by(uid: params[:user][:uid])
       redirect_to new_user_path
     else
-      ps= BCrypt::Password.create(pass: params[:user][:pass])
+      ps= BCrypt::Password.create(params[:user][:pass])
       user = User.new(uid: params[:user][:uid], pass: ps)
       user.save
-      redirect_to controller: :top, action: :main
+      redirect_to users_path
     end
   end
 
